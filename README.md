@@ -12,5 +12,6 @@ p_load(tidyverse, dplyr, ggthemes,
        gridExtra, gridtext, extrafont, 
        extrafontdb, ggalt, ggtext, 
        cowplot, ggforce, sf, 
-       geojsonio)
+       geojsonio, 
+       install = T)
 ```
