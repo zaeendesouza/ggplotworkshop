@@ -1,0 +1,17 @@
+post,pre,percentage,id
+Casual/daily wage worker,Casual/daily wage worker,58,1
+Self-employed,Casual/daily wage worker,33,2
+Temporary salaried,Casual/daily wage worker,6,3
+Permanent salaried,Casual/daily wage worker,3,4
+Casual/daily wage worker,Self-employed,15,5
+Self-employed,Self-employed,76,6
+Temporary salaried,Self-employed,4,7
+Permanent salaried,Self-employed,5,8
+Casual/daily wage worker,Temporary salaried,23,9
+Self-employed,Temporary salaried,31,10
+Temporary salaried,Temporary salaried,36,11
+Permanent salaried,Temporary salaried,10,12
+Casual/daily wage worker,Permanent salaried,10,13
+Self-employed,Permanent salaried,34,14
+Temporary salaried,Permanent salaried,8,15
+Permanent salaried,Permanent salaried,48,16
