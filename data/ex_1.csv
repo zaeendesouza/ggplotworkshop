@@ -1,0 +1,193 @@
+month,state,mobility,incgr,state_month
+1,Andhra Pradesh,-17.7742,-9.308,AP1
+2,Andhra Pradesh,-58.76,-51.666,AP2
+3,Andhra Pradesh,-47.0323,-27.008,AP3
+4,Andhra Pradesh,-30.52,-11.773,AP4
+5,Andhra Pradesh,-36.1484,-4.679,AP5
+6,Andhra Pradesh,-35.5097,6.7829,AP6
+7,Andhra Pradesh,-26.5667,-4.206,AP7
+8,Andhra Pradesh,-18.7871,-18.508,AP8
+1,Assam,-17.3226,-32.119,AS1
+2,Assam,-54.04,-51.654,AS2
+3,Assam,-39.7613,-19.691,AS3
+4,Assam,-28.3667,-19.921,AS4
+5,Assam,-37.6903,-14.647,AS5
+6,Assam,-30.5613,-9.525,AS6
+7,Assam,-19.3933,-17.348,AS7
+8,Assam,-14.4129,-28.949,AS8
+1,Bihar,-14.2968,-27.758,BR1
+2,Bihar,-43.48,-52.412,BR2
+3,Bihar,-28.5419,-51.259,BR3
+4,Bihar,-6.32,-9.543,BR4
+5,Bihar,-18.7677,4.7289,BR5
+6,Bihar,-15.0064,2.1792,BR6
+7,Bihar,-7.75333,-2.749,BR7
+8,Bihar,-4.14839,-17.1,BR8
+1,Chhattisgarh,-22.1871,-7.358,CG1
+2,Chhattisgarh,-56.42,-40.493,CG2
+3,Chhattisgarh,-42.6968,-19.942,CG3
+4,Chhattisgarh,-31.6467,-12.576,CG4
+5,Chhattisgarh,-32.5613,-11.329,CG5
+6,Chhattisgarh,-33.3742,-10.141,CG6
+7,Chhattisgarh,-35.1,-17.936,CG7
+8,Chhattisgarh,-23.129,-22.578,CG8
+1,Delhi,-32.5807,-21.167,DL1
+2,Delhi,-81.7133,-62.582,DL2
+3,Delhi,-71.0839,-60.563,DL3
+4,Delhi,-57.16,-31.934,DL4
+5,Delhi,-51.3032,-34.235,DL5
+6,Delhi,-46.1871,-34.803,DL6
+7,Delhi,-40.32,-35.257,DL7
+8,Delhi,-33.5871,-33.202,DL8
+1,Goa,-30.5161,-20.597,GA1
+2,Goa,-66.0067,-43.432,GA2
+3,Goa,-48.8968,-20.538,GA3
+4,Goa,-47.9667,-13.076,GA4
+5,Goa,-52.4258,-8.286,GA5
+6,Goa,-51.0968,-2.863,GA6
+7,Goa,-46.0933,0.3493,GA7
+8,Goa,-39.0645,4.6349,GA8
+1,Gujarat,-23.9226,-2.302,GJ1
+2,Gujarat,-68.7533,-30.574,GJ2
+3,Gujarat,-58.1032,-35.186,GJ3
+4,Gujarat,-37.02,-9.984,GJ4
+5,Gujarat,-36.5936,-6.171,GJ5
+6,Gujarat,-37.3161,-2.42,GJ6
+7,Gujarat,-28.86,-8.163,GJ7
+8,Gujarat,-23,5.9773,GJ8
+1,Himachal Pradesh,-13.5613,-37.538,HP1
+2,Himachal Pradesh,-48.28,-29.974,HP2
+3,Himachal Pradesh,-31.6516,-52.958,HP3
+4,Himachal Pradesh,-19.0867,-43.188,HP4
+5,Himachal Pradesh,-15.6645,-32.783,HP5
+6,Himachal Pradesh,-15.1677,-33.599,HP6
+7,Himachal Pradesh,-11.86,-22.408,HP7
+8,Himachal Pradesh,-3.97419,-39.19,HP8
+1,Haryana,-24.2,-16.022,HR1
+2,Haryana,-69.0933,-51.29,HR2
+3,Haryana,-56.8323,-24.369,HR3
+4,Haryana,-44.4733,-10.019,HR4
+5,Haryana,-39.8194,-8.945,HR5
+6,Haryana,-36.8258,-10.119,HR6
+7,Haryana,-32.1267,-17.259,HR7
+8,Haryana,-24.5097,-30.652,HR8
+1,Jharkhand,-18.271,-20.127,JH1
+2,Jharkhand,-54.7667,-46.906,JH2
+3,Jharkhand,-46.7613,-41.668,JH3
+4,Jharkhand,-28.9533,-38.982,JH4
+5,Jharkhand,-28.3742,-33.384,JH5
+6,Jharkhand,-28.5032,-32.27,JH6
+7,Jharkhand,-22.04,-31.403,JH7
+8,Jharkhand,-15.8194,-34.058,JH8
+1,Karnataka,-23.4903,4.3799,KA1
+2,Karnataka,-65.3733,-48.325,KA2
+3,Karnataka,-49.4323,-27.782,KA3
+4,Karnataka,-36.18,-20.918,KA4
+5,Karnataka,-46.2387,-20.055,KA5
+6,Karnataka,-38.1613,-19.678,KA6
+7,Karnataka,-33.6733,-18.919,KA7
+8,Karnataka,-28.6839,-21.442,KA8
+1,Kerala,-25.7419,-18.957,KL1
+2,Kerala,-50.9733,-69.305,KL2
+3,Kerala,-31,-52.75,KL3
+4,Kerala,-19.3,-35.353,KL4
+5,Kerala,-25.5097,-37.929,KL5
+6,Kerala,-28.8903,-30.748,KL6
+7,Kerala,-23.1133,-35.871,KL7
+8,Kerala,-21.7936,-40.29,KL8
+1,Maharashtra,-28.4323,62.8931,MH1
+2,Maharashtra,-71.9667,-1.521,MH2
+3,Maharashtra,-64.3097,25.4647,MH3
+4,Maharashtra,-52.4133,8.2961,MH4
+5,Maharashtra,-54.4,-4.335,MH5
+6,Maharashtra,-47.9613,-0.646,MH6
+7,Maharashtra,-41.06,-8.398,MH7
+8,Maharashtra,-32.4903,38.5687,MH8
+1,Meghalaya,-19.1871,-21.585,ML1
+2,Meghalaya,-47.5,-54.759,ML2
+3,Meghalaya,-38.1226,-50.242,ML3
+4,Meghalaya,-27.6933,-28.875,ML4
+5,Meghalaya,-33.9935,-19.535,ML5
+6,Meghalaya,-30.2516,-11.587,ML6
+7,Meghalaya,-25.8933,-11.923,ML7
+8,Meghalaya,-22.1806,-8.248,ML8
+1,Madhya Pradesh,-23.0774,-12.036,MP1
+2,Madhya Pradesh,-65.2,-75.161,MP2
+3,Madhya Pradesh,-53.5097,-16.597,MP3
+4,Madhya Pradesh,-35.3533,18.9054,MP4
+5,Madhya Pradesh,-33.4516,2.3891,MP5
+6,Madhya Pradesh,-33.9484,5.0066,MP6
+7,Madhya Pradesh,-25.6067,2.1525,MP7
+8,Madhya Pradesh,-18.9226,-10.218,MP8
+1,Odisha,-19.7742,-21.571,OD1
+2,Odisha,-55.3867,-47.153,OD2
+3,Odisha,-40.7742,-31.543,OD3
+4,Odisha,-32.7333,-16.862,OD4
+5,Odisha,-38.3419,-9.609,OD5
+6,Odisha,-35.5032,-4.185,OD6
+7,Odisha,-22.9333,-8.303,OD7
+8,Odisha,-21.0516,-17.379,OD8
+1,Rajasthan,-22.7032,-10.972,RJ1
+2,Rajasthan,-63.6067,-35.517,RJ2
+3,Rajasthan,-49.6452,-18.907,RJ3
+4,Rajasthan,-29.6067,0.7751,RJ4
+5,Rajasthan,-24.9484,1.2664,RJ5
+6,Rajasthan,-28.1484,5.903,RJ6
+7,Rajasthan,-24.7733,0.3065,RJ7
+8,Rajasthan,-20.1548,-8.131,RJ8
+1,Sikkim,-11.7226,-10.706,SK1
+2,Sikkim,-55.8733,-41.592,SK2
+3,Sikkim,-42.6968,-16.231,SK3
+4,Sikkim,-35.8467,-11.156,SK4
+5,Sikkim,-44.3355,-12.223,SK5
+6,Sikkim,-28.8903,-20.317,SK6
+7,Sikkim,-34.9733,-20.63,SK7
+8,Sikkim,-30.7032,-18.486,SK8
+1,Telangana,-22.2323,-8.862,TL1
+2,Telangana,-67.7667,-68.329,TL2
+3,Telangana,-55.6323,-49.276,TL3
+4,Telangana,-39.6667,-31.072,TL4
+5,Telangana,-42.4193,-19.992,TL5
+6,Telangana,-41.2581,-16.834,TL6
+7,Telangana,-34.3267,-17.714,TL7
+8,Telangana,-28.8968,-21.832,TL8
+1,Tamil Nadu,-18.2,-41.938,TN1
+2,Tamil Nadu,-60.8067,-36.632,TN2
+3,Tamil Nadu,-44.4129,-29.36,TN3
+4,Tamil Nadu,-35.4533,-20.33,TN4
+5,Tamil Nadu,-38.9806,-22.522,TN5
+6,Tamil Nadu,-35.4968,-17.322,TN6
+7,Tamil Nadu,-25.3,-23.755,TN7
+8,Tamil Nadu,-20.0774,-15.164,TN8
+1,Tripura,-16,-19.515,TR1
+2,Tripura,-47.4333,-57.165,TR2
+3,Tripura,-32.2839,-24.4,TR3
+4,Tripura,-21.92,-23.729,TR4
+5,Tripura,-23.6258,-18.656,TR5
+6,Tripura,-20.2323,-11.761,TR6
+7,Tripura,-19.9667,-16.388,TR7
+8,Tripura,-11.3935,-20.487,TR8
+1,Uttarakhand,-19.4129,-23.797,UK1
+2,Uttarakhand,-58.6,-45.615,UK2
+3,Uttarakhand,-41.8323,-39.486,UK3
+4,Uttarakhand,-29.1867,-12.39,UK4
+5,Uttarakhand,-25.8839,-15.649,UK5
+6,Uttarakhand,-24.8903,-11.962,UK6
+7,Uttarakhand,-20.6333,-15.731,UK7
+8,Uttarakhand,-6.67742,-20.743,UK8
+1,Uttar Pradesh,-19.9161,-23.572,UP1
+2,Uttar Pradesh,-59.5267,-37.874,UP2
+3,Uttar Pradesh,-47.4129,-16.56,UP3
+4,Uttar Pradesh,-28.9467,-15.103,UP4
+5,Uttar Pradesh,-30.9161,-26.035,UP5
+6,Uttar Pradesh,-30.271,-13.228,UP6
+7,Uttar Pradesh,-21.8267,-18.622,UP7
+8,Uttar Pradesh,-15.3161,-26.03,UP8
+1,West Bengal,-22.4258,-18.75,WB1
+2,West Bengal,-61.18,-53.763,WB2
+3,West Bengal,-54.7032,-47.814,WB3
+4,West Bengal,-35.98,-26.794,WB4
+5,West Bengal,-37.7742,-21.19,WB5
+6,West Bengal,-38.471,-11.045,WB6
+7,West Bengal,-29.1133,-12.774,WB7
+8,West Bengal,-20.8581,-16.862,WB8
