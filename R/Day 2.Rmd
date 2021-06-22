@@ -1,0 +1,649 @@
+---
+title: |
+  | Communicating Economics:
+subtitle: |
+  | Data Visualisation in \alert{\textbf{R}}
+author: |
+  | Zaeen de Souza
+  | Azim Premji University
+  | 6/05/21
+output:
+  beamer_presentation:
+    keep_tex: no
+    latex_engine: xelatex
+    slide_level: 2
+    incremental: no
+  highlight: github
+fontsize: 9pt
+# classoption: "aspectratio=169"
+# `plot(cars, main = 'A scatterplot.')`{.R}
+# above code is for highlighted in-line text
+header-includes:
+- \usepackage{booktabs}
+- \usepackage{appendixnumberbeamer}
+- \usepackage{xcolor}
+- \usepackage{graphicx}
+- \usepackage{multicol}
+- \usepackage{threeparttable}
+- \usetheme[progressbar = frametitle, numbering = fraction]{metropolis}
+- \definecolor{pinkish}{RGB}{230,65,115}
+- \definecolor{blueish}{RGB}{66,133,244}
+- \definecolor{greyish}{RGB}{248,248,248}
+- \definecolor{purpleish}{RGB}{106, 90, 205}
+- \definecolor{orangeish}{RGB}{255,159,70}
+- \definecolor{maro}{RGB}{206,31,106}
+- \setbeamercolor{alerted text}{fg = pinkish}
+- \setbeamercolor{background canvas}{bg=white}
+- \hypersetup{colorlinks, citecolor = blueish,  filecolor = blueish, linkcolor = blueish, urlcolor=blueish}
+- \setbeamercolor{progress bar}{fg=pinkish}
+- \newcommand{\code}{\texttt}
+- \usepackage{caption}
+- \captionsetup[table]{belowskip = 0pt,aboveskip = 0pt}
+
+#```{=tex}
+#  \frametitle{Outline}
+#  \begin{minipage}{\textwidth}
+#  \tableofcontents
+#  \end{minipage}
+# ```
+# - \setlength\belowcaptionskip{-10pt}
+# - \setbeamertemplate{frame footer}{Zaeen de Souza}
+---
+
+```{r setup, include=FALSE}
+map_data <- read.csv("C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/data/map_data.csv")
+library(pacman)
+p_load(
+  readxl,
+  tidyverse,
+  ggthemes,
+  gridExtra,
+  grid,
+  gridtext,
+  extrafont,
+  extrafontdb,
+  Hmisc,
+  broom,
+  dplyr,
+  lubridate,
+  cowplot,
+  ggalt,
+  ggplot,
+  sf,
+  ggthemes,
+  ggtext,
+  geojsonio,
+  biscale)
+my_theme <- function(base_size = 12,
+                        base_family = "") {
+  theme_minimal(base_size = base_size,
+                base_family = base_family) %+replace%
+    theme(
+      panel.grid.minor = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y  =  element_line(
+        colour = "#c9c0b7",
+        linetype = "dotted",
+        size = 0.5),
+      axis.ticks = element_line(size = 0.5, colour = "#c9c0b7"),
+      axis.ticks.x = element_blank(),
+      axis.line = element_line(
+        size = 0.5,
+        colour = "#c9c0b7",
+        linetype = "solid"),
+      axis.line.y = element_blank(),
+      axis.text.y = element_text(colour = "black", 
+                                 margin = margin(r = 2), hjust = 1),
+      axis.text.x = element_text(colour = "black"),
+      # we done here
+      complete = TRUE
+    )
+}
+
+bivariate_color_scale <- tibble(
+  "3 - 3" = "#574249", 
+  "2 - 3" = "#627F8C",
+  "1 - 3" = "#64ACBE", 
+  "3 - 2" = "#985356",
+  "2 - 2" = "#AD9EA5", 
+  "1 - 2" = "#B0D5DF",
+  "3 - 1" = "#C85A5A", 
+  "2 - 1" = "#E4ACAC",
+  "1 - 1" = "#E8E8E8" )
+
+bi <- bivariate_color_scale %>%
+  gather("group", "fill") %>%
+  separate(group, into = c("x", "y"), sep = " - ") %>%
+  mutate(x = as.integer(x),
+         y = as.integer(y))
+
+```
+
+# Overview
+
+## Last class
+
+You should be familiar with the following concepts:
+
+```{=tex}
+\begin{itemize}
+
+\item[1.] \textbf{\alert{R syntax}}
+
+\item[2.] \textbf{\alert{ggplot/ggplot syntax}}
+
+\item[3.] \textbf{\alert{Aesthetics}}
+
+\item[4.] \textbf{\alert{Geometries}}
+
+\item[5.] \textbf{\alert{R help files}}
+
+\end{itemize}
+```
+## However...learning ggplot sometimes feels like this
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5cm]{C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/screenshots/meme.png}
+\caption{A Step-by-Step Guide}
+\end{figure}
+
+## Today
+
+```{=tex}
+\begin{itemize}
+
+\item[] \textbf{\alert{GIS data}}\\
+How to read, use and graph geospatial data in R
+
+\item[] \textbf{\alert{Colours/Scales}}\\
+One variable vs Multiple variables 
+
+\end{itemize}
+```
+
+# Maps
+
+## Bubble Maps
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/screenshots/bubble.png}
+\caption{These are weighted centroids/individual points}
+\end{figure}
+
+
+## Cartogram
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/screenshots/carto.png}
+\caption{Whats going on here?}
+\end{figure}
+
+
+
+## Connections
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/screenshots/connect.png}
+\caption{These could be used to show networks/flows, trade, flights etc}
+\end{figure}
+
+## The data
+
+```{r, eval=TRUE, echo=F}
+india <- geojson_read("C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/data/Maps/my_map.geojson",  
+                      what = "sp")
+```
+
+This is a geojson file. You can read more about spatial data [here](https://rspatial.org/raster/spatial/2-spatialdata.html#:~:text=not%20discussed%20here.-,Simple%20representation%20of%20spatial%20data,be%20combined%20into%20a%20data.)
+```{r, eval=F, echo=TRUE}
+india <- geojson_read("my_map.geojson",  
+                      what = "sp")
+```
+
+## The data
+
+`geojson` files have a few different features. 
+```{r, eval=TRUE, echo=TRUE}
+summary(india)
+```
+1. Coordinates
+2. Attributes
+
+You can also use shape files, raster files etc.
+
+## Packages
+
+```{r, eval=T, echo=T}
+library(broom)
+names(map_data)[names(map_data) == 'ST_NM'] <- 'id'
+```
+We need to first, create a linking `id` across both datasets---the gis data and the survey data we want to merge to it.
+
+```{r, eval=T, echo=T}
+
+# tidying the map data
+india_df <- tidy(india, region = "ST_NM")
+# merging by id
+india_merge <- left_join(india_df, 
+                         map_data, 
+                         by = "id")
+
+```
+
+
+
+## Your merged data should look like this
+
+```{r, eval=T, echo=F}
+glimpse(india_merge, width = 5)
+```
+
+## Spatial Geometries
+
+For spatial objects, there are some new `geoms`: 
+```{=tex}
+\begin{itemize}
+\item[1.] \textcolor{pinkish}{\colorbox{greyish}{\textbf{geom\_polygon}}}
+\item[2.] \textcolor{pinkish}{\colorbox{greyish}{\textbf{geom\_sf}}}
+\end{itemize}
+```
+
+## This should be familiar
+What do you get if you plot the following data?
+```{=tex}
+\begin{itemize}
+\item[1.] \textcolor{pinkish}{\colorbox{greyish}{\textbf{latitude}}}
+\item[2.] \textcolor{pinkish}{\colorbox{greyish}{\textbf{longitude}}}
+\end{itemize}
+```
+
+
+## A map is basically a scatterplot
+
+```{r, echo = F, eval = T, warning = F, message = FALSE, out.height = "70%", fig.align = 'center', fig.cap="A Scatter plot!"}
+ggplot() +
+  geom_point(data = india_merge, 
+               aes(x = long, 
+                   y = lat, 
+               show.legend = F))
+```
+
+## If you colour areas by state, you get this
+
+```{r, echo = F, eval = T, warning = F, message = FALSE, out.height = "70%", fig.align = 'center', fig.cap="A basic map"}
+ggplot() +
+  geom_polygon(data = india_merge, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group, 
+                   fill = group), 
+               show.legend = F)
+```
+
+## Map Projections
+
+But..., why is the map squashed?
+
+```{r, echo = T, eval = F, warning = F, message = FALSE, out.height = "70%", fig.align = 'center', fig.cap="A basic map"}
+ggplot() +
+  geom_polygon(data = india_merge, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group, 
+                   fill = id), 
+               show.legend = F) +
+  coord_map() # this corrects the dimensions!
+```
+
+## Map Projections: this is much better!
+
+
+```{r, echo = F, eval = T, warning = F, message = FALSE, out.height = "70%", fig.align = 'center', fig.cap="A basic map"}
+ggplot() +
+  geom_polygon(data = india_merge, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group, 
+                   fill = id), 
+               show.legend = F) +
+  coord_map() + 
+  theme_pander()
+```
+
+## Map Projections
+
+We need to project a sphere onto a 2d plane---this distorts the scale, and as such, squashes the map. Usually, this is corrected with the function \textcolor{pinkish}{\colorbox{greyish}{\textbf{coord\_map()}}}. I think the distortion is less severe for countries around the equator 
+
+## Scales
+
+Suppose you want to shade different regions by the variable \textcolor{orangeish}{\colorbox{greyish}{\textbf{recovery\_total}}}.
+
+```{r, echo = T, eval = F, warning = F, message = FALSE, out.height = "70%", fig.align = 'center', fig.cap="A basic map"}
+ggplot() +
+  geom_polygon(data = india_merge, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group, 
+                   fill = recovery_total*100), 
+               color="white",
+               show.legend = T) +
+  # Choose a max/min colour code, and add here
+  scale_fill_gradient(low = "#F9F871", 
+                      high = "#845EC2",
+  # Adding this to show how to deal with NA's/that there ARE missing values!
+                      na.value = "black") +
+  coord_map() + 
+  theme_void()
+```
+
+## Scales: Univariate Data
+
+```{r, echo = F, eval = T, warning = F, message = FALSE, out.height = "70%", fig.align = 'center', fig.cap="A basic map"}
+ggplot() +
+  geom_polygon(data = india_merge, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group, 
+                   fill = recovery_total*100), 
+               color="white",
+               show.legend = T) +
+  # Choose a max/min colour code, and add here
+  scale_fill_gradient(low = "#F9F871", 
+                      high = "#845EC2",
+  # Adding this to show how to deal with NA's                    
+                      na.value = "black") +
+  coord_map() + 
+  theme_void()
+```
+
+
+## What if data is multivariate? 
+
+One solution is use to some kind of dimension reduction---an index, or create a new variable, out of 2 or more, as was done here: 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/screenshots/swi.png}
+\caption{Mapping >1 variable}
+\end{figure}
+
+
+
+## What if data is multivariate? 
+
+What else could work? What are potential ways to represent multivariate data onto a choropleth map?
+
+
+## Multivariate Scales: Take Home Exercise
+
+You need two variables and two scales, going low to high, from left to right---note, the low colour is common across scales.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5cm]{C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/screenshots/grid_1.png}
+\caption{Mapping >1 variable}
+\end{figure}
+
+## Multivariate Scales: Take Home Exercise
+
+Step 2: Rotate the first 90 degrees, so it goes low to high, from bottom to top.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5cm]{C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/screenshots/grid_2.png}
+\caption{Mapping >1 variable}
+\end{figure}
+
+## Multivariate Scales: Take Home Exercise
+
+Overlay the two scales as such:
+
+```{r, echo = F, eval = T, warning = F, message = FALSE, out.height = "60%", fig.align = 'center', fig.cap="Overlaying one scale on another"}
+
+bivariate_color_scale %>%
+  gather("group", "fill") %>%
+  separate(group, into = c("x", "y"), sep = " - ") %>%
+  mutate(x = as.integer(x),
+         y = as.integer(y)) %>%
+ggplot(aes(x, y)) +
+	geom_tile(aes(fill = fill)) +
+	scale_fill_identity() + 
+  theme_pander(base_size = 20)
+```
+
+## A Small Example (With Incomplete Data!)
+
+```{r, echo = F, eval = T, warning = F, message = FALSE, out.height = "70%", fig.align = 'center', fig.cap="Try to replicate/build scales like this"}
+
+bi <- bi_class(india_merge, 
+               x = recovery_male, 
+               y = recovery_female, 
+               style = "quantile", dim = 3)
+
+
+bi$bi_class[bi$bi_class == "1-NA"] <- NA
+bi$bi_class[bi$bi_class == "NA-NA"] <- NA
+
+map <- ggplot() +
+  geom_polygon(data = bi, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group, 
+                   fill = bi_class), 
+               show.legend = F,
+               colour ="grey22",
+               size = 0.1) +
+  bi_scale_fill(pal = "GrPink", 
+                dim = 3, 
+                na.value ="white") +
+  theme_pander() + coord_map() + 
+  theme(axis.text = element_blank()) + 
+  theme(axis.title.y  = element_blank()) +
+  theme(axis.title.x = element_blank()) +
+  labs(title = "Male and Female Job Recovery Doesn't Go Hand-in-Hand",
+       subtitle = "Something something something something something",
+       caption = "Data: State of Working India 2021\n Note: Each square represents a quantile of the two variables.")
+
+
+legend <- bi_legend(pal = "GrPink",
+                    dim = 3,
+                    xlab = "High Male\nRecovery %",
+                    ylab = "High Female\nRecovery %",
+                    size = 9)
+
+finalPlot <- ggdraw(clip = "off") +
+  draw_plot(map, 0, 0, 1, 1) +
+  draw_plot(legend, 0.55, .2, 0.2, 0.2)
+
+finalPlot
+```
+
+## However, these tend to look better with more granular data
+```{r, echo = F, eval = T, warning = F, message = FALSE, out.height = "70%", fig.align = 'center', fig.cap="Try to make something similar!"}
+
+india <- read_sf("C:/Users/Zaeen de Souza/Documents/GitHub/ggplotworkshop/data/Maps/India_3A_Agriculture_.shp")
+
+india_df <- as.data.frame(india)
+
+india$ID <- paste(india$state_name, india$district_n)
+
+bi <- bi_class(india, 
+               x = nholphl, 
+               y = perhkcardc, 
+               style = "quantile", dim = 3)
+
+
+bi$bi_class[bi$bi_class=="NA-NA"] <- NA
+
+map <-  ggplot(bi) +
+  geom_sf(aes(fill = bi_class),
+          show.legend = F,
+          colour = "grey90") +
+  coord_sf() +
+  bi_scale_fill("DkBlue",
+                dim = 3,
+                na.value = "white") +
+  theme_pander() +
+  theme(axis.text = element_blank()) +
+  theme(axis.title.y  = element_blank()) +
+  theme(axis.title.x = element_blank()) +
+  labs(title = "Kisan Credit Cards and land ownership are concentrated in North India",
+       subtitle = "Punjab, Haryana and Rajasthan have the highest % of land owning households,\nand as well, the highest % of farmers with Kisan Credit Cards (KCCs)",
+       caption = "Data: SECC & Census of India 2011\nNote: Categories are calculated by plotting terciles of each variable, against each other. White areas are missing data.") +
+    theme(plot.caption = element_text(hjust = 0, 
+                                      face = "italic"),
+        plot.title.position = "plot",
+        plot.caption.position =  "plot") + geom_curve(aes(
+          x = 86,
+          y = 16.5,
+          xend = 82,
+          yend = 17),
+          colour = "#555555",
+          curvature = -0.3,
+          size = 0.1,
+          arrow = arrow(length = unit(0.02, "npc")),
+          data = bi) + 
+  geom_richtext(
+    aes(
+      x = 86, 
+      y = 16.5,
+      label = "**Grey** areas have a lower % of<br>land owning HHs, and a<br>lower % of HHs with cards"),
+    lineheight = 0.8,
+    colour = "#2b2b2b",
+    fill = "white",
+    vjust = 0,
+    hjust = 0,
+    label.size = NA,
+    size = 3) +
+  geom_curve(
+    aes(
+      x = 86,
+      y = 32,
+      xend = 80.5,
+      yend = 28),
+    colour = "#555555",
+    curvature = -0.3,
+    size = 0.1,
+    arrow = arrow(length = unit(0.02, "npc")),
+    data = bi) + 
+  geom_richtext(
+    aes(
+      x = 86, 
+      y = 32,
+      label = "**Dark blue** areas have a higher % of<br>land owning HHs, and a<br>higher % of HHs with cards"),
+    lineheight = 0.8,
+    colour = "#2b2b2b",
+    fill = "white",
+    vjust = 0,
+    hjust = 0,
+    label.size = NA,
+    size = 3)
+
+legend <- bi_legend(
+  pal = "DkBlue",
+  dim = 3,
+  xlab = "Higher land\nownership (%) ",
+  ylab = "Higher KCC\nownership (%)",
+  size = 6)
+
+
+final <- ggdraw(clip = "off") +
+  draw_plot(map, 0, 0, 1, 1) +
+  draw_plot(legend, 0.5, .13, 0.2, 0.2)
+
+final
+```
+
+## Putting it all togther
+
+Use what we saw in the last class to make an annotated map like that---use the following:
+
+```{=tex}
+\begin{itemize}
+\item[1.] \textcolor{pinkish}{\colorbox{greyish}{\textbf{geom\_polygon}}} OR \textcolor{pinkish}{\colorbox{greyish}{\textbf{geom\_sf}}}: This is the spatial geom
+\item[2.] \textcolor{pinkish}{\colorbox{greyish}{\textbf{geom\_curve}}}: This is an arrow geom
+\item[3.] \textcolor{pinkish}{\colorbox{greyish}{\textbf{annotate}}}: this is for annotation
+\item[4.] \textcolor{pinkish}{\colorbox{greyish}{\textbf{geom\_richtext}}}: this is for annotation
+\end{itemize}
+```
+As well as any other ggplot compatible function from the list shared earlier.
+
+## 
+
+\centering
+\textbf{\alert{Thank You!}}
+
+# Extra Slides
+
+## Learning resources/general reading
+
+R resources:
+
+1. [Colour scales in ggplot](https://ggplot2-book.org/scale-colour.html)
+
+2. [Map colour picker](https://colorbrewer2.org/)
+
+3. [Colour in map design](https://carto.com/help/tutorials/color-in-map-design-part-1/)
+
+4. [Geocomputation with R](https://bookdown.org/robinlovelace/geocompr/)
+
+
+Interesting articles:
+
+1. [Gerardus Mercator revolutionized mapmaking. He was almost executed for it.](https://www.vox.com/2015/3/5/8151303/gerardus-mercator-maps)
+
+2. [John Snow's data journalism: the cholera map that changed the world](https://www.theguardian.com/news/datablog/2013/mar/15/john-snow-cholera-map)
+
+3. [Storytelling by Martin Krzywinski & Alberto Cairo](https://www.nature.com/articles/nmeth.2571.pdf)
+
+## Adding annotation layers to ggplot maps
+
+While the code itself is identical to the earlier example of annotation we saw in the dumbbell example, referencing coordinates is slightly different. An an extract from the annotated district map is here:
+```{r, eval=FALSE, echo=TRUE}
+# this adds the curved arrow that points to some part of the map
+geom_curve(aes(
+# these coordinates will be lat/long points 
+# that you can manually find from looking at the map axes 
+x = 86,
+y = 32,
+xend = 80.5,
+yend = 28),
+colour = "#555555",
+curvature = -0.3,
+size = 0.1,
+arrow = arrow(length = unit(0.02, "npc")), data = bi) 
+```
+
+## Adding annotation layers to ggplot maps
+This adds the text label at the start of the arrow.
+
+```{r, eval=FALSE, echo=TRUE}
+geom_richtext(aes(
+x = 86, 
+y = 32,
+# note the markdown syntax to add bold text and line breaks
+label = "**Dark blue** areas have a higher % of<br>land 
+owning HHs, and a<br>higher % of HHs with cards"),
+lineheight = 0.8,
+colour = "#2b2b2b",
+fill = "white",
+vjust = 0,
+hjust = 0,
+label.size = NA,
+size = 3)
+```
+
+# Extra, Extra Slides
+
+## Podcasts, Movies \& Office Hours (Yes, these exist!!)
+
+1. [Not So Standard Deviations by Hilary Parker, Roger Peng](https://nssdeviations.com/)
+2. [Tidy Tuesday by Jon Harmon](https://www.tidytuesday.com/)
+3. [Florence Nightingale Data Viz Pioneer by by Tim Harford](https://99percentinvisible.org/episode/florence-nightingale-data-viz-pioneer/)
+4. [Weapons of Math Destruction by Cathy O'Neil](https://www.youtube.com/watch?v=CglwuYH9hgA)
+5. [Coded Bias (Netflix)](https://www.youtube.com/watch?v=S0aw9nhIvCg)
+6. [R4DS Office Hours](https://www.rfordatasci.com/)
