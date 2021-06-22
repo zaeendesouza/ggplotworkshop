@@ -38,7 +38,7 @@ header-includes:
 - \setbeamercolor{progress bar}{fg=pinkish}
 - \newcommand{\code}{\texttt}
 - \usepackage{caption}
-- \captionsetup[table]{belowskip=0pt,aboveskip=0pt}
+- \captionsetup[table]{belowskip = 0pt,aboveskip = 0pt}
 
 #```{=tex}
 #  \frametitle{Outline}
@@ -84,11 +84,11 @@ my_theme <- function(base_size = 12,
       panel.grid.major.y  =  element_line(
         colour = "#c9c0b7",
         linetype = "dotted",
-        size = .5),
-      axis.ticks = element_line(size = .5, colour = "#c9c0b7"),
+        size = 0.5),
+      axis.ticks = element_line(size = 0.5, colour = "#c9c0b7"),
       axis.ticks.x = element_blank(),
       axis.line = element_line(
-        size = .5,
+        size = 0.5,
         colour = "#c9c0b7",
         linetype = "solid"),
       axis.line.y = element_blank(),
@@ -109,8 +109,7 @@ bivariate_color_scale <- tibble(
   "1 - 2" = "#B0D5DF",
   "3 - 1" = "#C85A5A", 
   "2 - 1" = "#E4ACAC",
-  "1 - 1" = "#E8E8E8" 
-)
+  "1 - 1" = "#E8E8E8" )
 
 bi <- bivariate_color_scale %>%
   gather("group", "fill") %>%
@@ -311,7 +310,8 @@ ggplot() +
                    group = group, 
                    fill = id), 
                show.legend = F) +
-  coord_map() + theme_pander()
+  coord_map() + 
+  theme_pander()
 ```
 
 ## Map Projections
@@ -334,7 +334,7 @@ ggplot() +
   # Choose a max/min colour code, and add here
   scale_fill_gradient(low = "#F9F871", 
                       high = "#845EC2",
-  # Adding this to show how to deal with NA's/that there ARE missing values!                    
+  # Adding this to show how to deal with NA's/that there ARE missing values!
                       na.value = "black") +
   coord_map() + 
   theme_void()
@@ -436,7 +436,7 @@ map <- ggplot() +
                    fill = bi_class), 
                show.legend = F,
                colour ="grey22",
-               size=.1) +
+               size = 0.1) +
   bi_scale_fill(pal = "GrPink", 
                 dim = 3, 
                 na.value ="white") +
@@ -494,20 +494,19 @@ map <-  ggplot(bi) +
   labs(title = "Kisan Credit Cards and land ownership are concentrated in North India",
        subtitle = "Punjab, Haryana and Rajasthan have the highest % of land owning households,\nand as well, the highest % of farmers with Kisan Credit Cards (KCCs)",
        caption = "Data: SECC & Census of India 2011\nNote: Categories are calculated by plotting terciles of each variable, against each other. White areas are missing data.") +
-    theme(plot.caption = element_text(hjust = 0, face= "italic"),
+    theme(plot.caption = element_text(hjust = 0, 
+                                      face = "italic"),
         plot.title.position = "plot",
-        plot.caption.position =  "plot") + geom_curve(
-    aes(
-      x = 86,
-      y = 16.5,
-      xend = 82,
-      yend = 17),
-    colour = "#555555",
-    curvature = -0.3,
-    size = 0.1,
-    arrow = arrow(length = unit(0.02, 
-                                "npc")),
-    data = bi) + 
+        plot.caption.position =  "plot") + geom_curve(aes(
+          x = 86,
+          y = 16.5,
+          xend = 82,
+          yend = 17),
+          colour = "#555555",
+          curvature = -0.3,
+          size = 0.1,
+          arrow = arrow(length = unit(0.02, "npc")),
+          data = bi) + 
   geom_richtext(
     aes(
       x = 86, 
@@ -529,8 +528,7 @@ map <-  ggplot(bi) +
     colour = "#555555",
     curvature = -0.3,
     size = 0.1,
-    arrow = arrow(length = unit(0.02, 
-                                "npc")),
+    arrow = arrow(length = unit(0.02, "npc")),
     data = bi) + 
   geom_richtext(
     aes(
@@ -550,8 +548,7 @@ legend <- bi_legend(
   dim = 3,
   xlab = "Higher land\nownership (%) ",
   ylab = "Higher KCC\nownership (%)",
-  size = 6
-)
+  size = 6)
 
 
 final <- ggdraw(clip = "off") +
